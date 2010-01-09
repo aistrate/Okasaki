@@ -1,4 +1,4 @@
-import Test.HUnit
+2import Test.HUnit
 import Test.QuickCheck
 import Data.List (sort, nub, group)
 import Text.Printf (printf)
@@ -10,18 +10,26 @@ main = do printTime $ runTestTT hunitTests
           printTime $ mapM_ (\(s,a) -> printf "%-25s: " s >> a) qcheckTests
 
 hunitTests = TestList [
-  "fromList/sorted input" ~:
+  "sorted input" ~:
   [
     testFromOrdList "" ~? "empty",
-    testFromOrdList [1..5] ~? "small/1",
-    testFromOrdList [1..12] ~? "small/2",
-    testFromOrdList ['a'..'z'] ~? "small/3",
-    testFromOrdList [1..400] ~? "medium",
-    testFromOrdList [1..10000] ~? "large"
-  ] ]
+    testFromOrdList ['a'..'z'] ~? "small",
+    testFromOrdList [1..500] ~? "medium",
+    testFromOrdList [1..20000] ~? "large"
+  ],
+  
+  "increasing input length" ~:
+    map (\n -> testFromOrdList [1..n] ~? "length " ++ show n) [0..300]
+  ]
+
+--  8889: 0.49
+-- 10000: 0.60s
+-- 13333: 1.00s
+-- 20000: 2.01s
+-- 30000: 4.45s
 
 qcheckTests = [ 
-  ("fromList/properties", qcheck (testFromOrdList::[Int] -> Bool)) ]
+  ("invariants", qcheck (testFromOrdList::[Int] -> Bool)) ]
 
 qcheck = --quickCheck
          --verboseCheck

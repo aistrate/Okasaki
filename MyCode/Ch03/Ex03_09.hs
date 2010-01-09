@@ -48,7 +48,25 @@ toSortedList (T _ a x b) = (toSortedList a) ++ (x : toSortedList b)
 
 -- Ex 3.9
 fromOrdList :: Ord a => [a] -> RedBlackSet a
-fromOrdList xs = fromList xs
+fromOrdList [] = E
+fromOrdList xs = let T _ a x b = fromOrdList' False B xs
+                 in T B a x b
+  where fromOrdList' _     c []  = E
+        fromOrdList' True  c [x] = T c E x E
+        fromOrdList' False _ [x] = T R E x E
+        fromOrdList' known c xs  = let (a, rest) = splitAt (length xs `div` 2) xs
+                                       (x, b) = (head rest, tail rest)
+                                       sa = fromOrdList' known (inverseColor c) a
+                                       ca = color sa
+                                   in T (inverseColor ca) sa x (fromOrdList' True ca b)
+
+                                   --     sa = fromOrdList' known ca a
+                                   --     cx = if known then c 
+                                   --          else (inverseColor $ color sa)
+                                   --     cb = if known then ca else color sa
+                                   -- in T cx sa x (fromOrdList' True cb b)
+
+inverseColor c = if c == B then R else B
 
 
 -- Helpers

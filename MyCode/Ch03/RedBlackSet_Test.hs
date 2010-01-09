@@ -3,7 +3,9 @@ import Test.QuickCheck
 import Data.List (sort, nub, group)
 import Text.Printf (printf)
 import TestHelper
-import RedBlackSet
+--import RedBlackSet   -- 6.46s
+--import Ex03_10a      -- 6.27s
+import Ex03_10b      -- 6.07s
 
 
 main = do printTime $ runTestTT hunitTests
@@ -17,7 +19,9 @@ hunitTests = TestList [
     testSet ['z','y'..'a'] ~? "descending",
     testSet (['a'..'z'] ++ ['z','y'..'a']) ~? "combined asc/desc",
     testSet (['z','y'..'a'] ++ ['a'..'z']) ~? "combined desc/asc",
-    testSet (replicate 100 'a') ~? "constant"
+    testSet (replicate 100 'a') ~? "constant",
+    testSet ([1,5..30000] ++ reverse [2,6..30000] ++ 
+             [3,7..30000] ++ reverse [4,8..30000]) ~? "large"
   ] ]
 
 qcheckTests = [ 
