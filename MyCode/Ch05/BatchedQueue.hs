@@ -5,6 +5,7 @@ import Queue
 
 
 data BatchedQueue a = BQ [a] [a]
+                      deriving (Eq, Show)
 
 
 check [] r = BQ (reverse r) []
