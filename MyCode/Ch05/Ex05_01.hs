@@ -26,21 +26,21 @@ instance Deque BatchedDeque where
   
   cons x (BD f r) = check (x:f) r
   
-  head (BD [] []) = error "BatchedDeque.head: empty queue"
+  head (BD [] []) = error "BatchedDeque.head: empty deque"
   head (BD [] [x]) = x
   head (BD (x:f) r) = x
   
-  tail (BD [] []) = error "BatchedDeque.tail: empty queue"
+  tail (BD [] []) = error "BatchedDeque.tail: empty deque"
   tail (BD [] [x]) = empty
   tail (BD (x:f) r) = check f r
   
   
   snoc (BD f r) x = check f (x:r)
   
-  last (BD [] []) = error "BatchedDeque.last: empty queue"
+  last (BD [] []) = error "BatchedDeque.last: empty deque"
   last (BD [x] []) = x
   last (BD f (x:r)) = x
   
-  init (BD [] []) = error "BatchedDeque.init: empty queue"
+  init (BD [] []) = error "BatchedDeque.init: empty deque"
   init (BD [x] []) = empty
   init (BD f (x:r)) = check f r
