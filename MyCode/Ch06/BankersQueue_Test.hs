@@ -3,7 +3,8 @@ import Test.QuickCheck
 import Text.Printf (printf)
 import Timer
 import Prelude hiding (head, tail)
-import BankersQueue
+--import BankersQueue
+import Ex06_02
 
 
 main = do printTime $ runTestTT hunitTests

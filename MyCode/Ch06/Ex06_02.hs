@@ -1,5 +1,5 @@
-module BankersQueue (module Queue, BankersQueue(..)) where
-  
+module Ex06_02 (module Queue, BankersQueue(..)) where
+
 import Prelude hiding (head, tail)
 import Queue
 
@@ -9,7 +9,7 @@ data BankersQueue a = BQ Int [a] Int [a]
 
 
 check lenf f lenr r =
-  if lenr <= lenf then BQ lenf f lenr r
+  if lenr <= 2 * lenf then BQ lenf f lenr r
   else BQ (lenf+lenr) (f ++ reverse r) 0 []
 
 
