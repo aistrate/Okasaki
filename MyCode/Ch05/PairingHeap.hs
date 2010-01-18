@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleInstances, MultiParamTypeClasses #-}
 
-module PairingHeap (module Heap, PairingHeap) where
+module PairingHeap (module Heap, PairingHeap(..)) where
   
 import Heap
 
